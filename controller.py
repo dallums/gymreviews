@@ -13,11 +13,24 @@ def get_reviews():
     # Create a cursor object to execute queries
     cursor = db.cursor()
     # Execute a SELECT query to retrieve all reviews
-    cursor.execute("SELECT * FROM reviews")
+    cursor.execute("SELECT * FROM gym_reviews")
     # Fetch all results
     results = cursor.fetchall()
     # Convert the results to a list of dictionaries
-    reviews = [{'id': row[0], 'title': row[1], 'body': row[2], 'rating': row[3]} for row in results]
+    reviews = [{'id': row[0], 'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
+    # Return the reviews as JSON
+    return jsonify(reviews)
+
+@app.route('/api/reviews/gym_name/<gym_name>', methods=['GET'])
+def get_reviews_by_gym_name(gym_name):
+    # Create a cursor object to execute queries
+    cursor = db.cursor()
+    # Execute a SELECT query to retrieve all reviews
+    cursor.execute(f"SELECT * FROM gym_reviews WHERE gym_reviews.gym_name = '{gym_name}'")
+    # Fetch all results
+    results = cursor.fetchall()
+    # Convert the results to a list of dictionaries
+    reviews = [{'id': row[0], 'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
     # Return the reviews as JSON
     return jsonify(reviews)
 
@@ -26,14 +39,19 @@ def get_reviews():
 def post_review():
     # Extract the review data from the request body
     review = request.get_json()
-    title = review['title']
-    body = review['body']
+    gym_name = review['gym_name']
+    reviewer_name = review['reviewer_name']
+    review_text = review['review_text']
     rating = review['rating']
     # Create a cursor object to execute queries
     cursor = db.cursor()
     # Execute an INSERT query to insert the review data into the database
-    cursor.execute("INSERT INTO reviews (title, body, rating) VALUES (%s, %s, %s)", (title, body, rating))
+    cursor.execute("INSERT INTO gym_reviews (gym_name, reviewer_name, review_text, rating) VALUES (%s, %s, %s)",
+                   (gym_name, reviewer_name, review_text, rating))
     # Commit the changes to the database
     db.commit()
     # Return a success message
-    return 'Review posted successfully'
+    return 'Review posted successfully!'
+
+if __name__ == '__main__':
+    app.run()

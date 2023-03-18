@@ -1,10 +1,10 @@
 import mysql.connector
 
 class DataBase:
-    def get_connection():
+    def get_connection(self):
         return mysql.connector.connect(
                 host="localhost",
-                user="yourusername",
-                password="yourpassword",
-                database="yourdatabase"
+                user="test",
+                password="mypassword",
+                database="gymreviews"
                 )
