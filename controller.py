@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import DAL
 
 # Create a Flask app
@@ -6,6 +6,11 @@ app = Flask(__name__)
 
 dal = DAL.DataBase()
 db = dal.get_connection()
+
+# Define the home page
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # Define a route to handle GET requests
 @app.route('/api/reviews', methods=['GET'])
@@ -17,7 +22,7 @@ def get_reviews():
     # Fetch all results
     results = cursor.fetchall()
     # Convert the results to a list of dictionaries
-    reviews = [{'id': row[0], 'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
+    reviews = [{'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
     # Return the reviews as JSON
     return jsonify(reviews)
 
@@ -30,7 +35,7 @@ def get_reviews_by_gym_name(gym_name):
     # Fetch all results
     results = cursor.fetchall()
     # Convert the results to a list of dictionaries
-    reviews = [{'id': row[0], 'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
+    reviews = [{'gym_name': row[1], 'reviewer_name': row[2], 'review_text': row[3], 'rating': row[4]} for row in results]
     # Return the reviews as JSON
     return jsonify(reviews)
 

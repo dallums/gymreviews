@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gym Reviews</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <h1>Gym Reviews</h1>
+    <div id="form">
+      <input type="text" placeholder="Gym Name" id="gym-name-input">
+      <button onclick="getReviewsByGymName()">Get Reviews by Gym Name</button>
+      <button onclick="getAllReviews()">Get All Reviews</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Gym Name</th>
+          <th>Reviewer Name</th>
+          <th>Review Text</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody id="reviews-table">
+      </tbody>
+    </table>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
