@@ -51,12 +51,12 @@ def post_review():
     # Create a cursor object to execute queries
     cursor = db.cursor()
     # Execute an INSERT query to insert the review data into the database
-    cursor.execute("INSERT INTO gym_reviews (gym_name, reviewer_name, review_text, rating) VALUES (%s, %s, %s)",
+    cursor.execute("INSERT INTO gym_reviews (gym_name, reviewer_name, review_text, rating) VALUES (%s, %s, %s, %s)",
                    (gym_name, reviewer_name, review_text, rating))
     # Commit the changes to the database
     db.commit()
     # Return a success message
-    return 'Review posted successfully!'
+    return f'Review posted successfully! {gym_name}'
 
 if __name__ == '__main__':
     app.run()
