@@ -76,10 +76,10 @@ function getReviewsByGymName() {
   }
   
   function getAllReviews() {
-    fetch("/api/reviews")
+    fetch(`/api/reviews`)
       .then((response) => response.json())
       .then((data) => {
-        var table = document.getElementById("reviews-table");
+        var table = document.getElementById("reviewsTable");
         table.innerHTML = "";
         data.forEach((review) => {
           table.appendChild(createReviewRow(review));
