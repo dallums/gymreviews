@@ -12,6 +12,8 @@ db = dal.get_connection()
 def home():
     return render_template('index.html')
 
+#TODO: create necessary tables and refactor to take into account dataclasses instead of the garbage below
+
 # Define a route to handle GET requests
 @app.route('/api/reviews', methods=['GET'])
 def get_reviews():
