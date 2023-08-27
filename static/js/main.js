@@ -13,12 +13,7 @@ form.addEventListener("submit", function (event) {
   const rating = document.querySelector("#rating-input").value;
 
   // Create a new review object
-  const review = {
-    gym_name: gymName,
-    reviewer_name: reviewerName,
-    review_text: reviewText,
-    rating: rating,
-  };
+  review = createReviewObject(gymName, reviewerName, reviewText, rating);
 
   // Call the addReview function with the review object as the argument
   addReview(review);
@@ -30,12 +25,7 @@ function addReview() {
     const reviewText = document.getElementById("reviewTextInput").value;
     const rating = document.getElementById("ratingInput").value;
     
-    const review = {
-      gym_name: gymName,
-      reviewer_name: reviewerName,
-      review_text: reviewText,
-      rating: rating
-    };
+    review = createReviewObject(gymName, reviewerName, reviewText, rating);
     
     fetch('/api/reviews', {
       method: 'POST',
@@ -59,8 +49,6 @@ function addReview() {
       }
     });
   }
-  
-
 
 function getReviewsByGymName() {
     var gymName = document.getElementById("gymNameInput").value;
@@ -103,4 +91,14 @@ function getReviewsByGymName() {
     row.appendChild(ratingCell);
     return row;
   }
+
+  function createReviewObject(gym_name, reviewer_name, review_text, rating) {
+    const review = {
+        gym_name,
+        reviewer_name,
+        review_text,
+        rating
+    };
+    return review;
+}
   
