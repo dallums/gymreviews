@@ -9,8 +9,13 @@ db = dal.get_connection()
 
 # Define the home page
 @app.route('/')
+@app.route('/index.html')
 def home():
     return render_template('index.html')
+
+@app.route('/add_review.html')
+def add_review():
+    return render_template('add_review.html')
 
 #TODO: create necessary tables and refactor to take into account dataclasses instead of the garbage below
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gym Reviews</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gym Reviews</h1>
+      <div class="input-form">
+        <h2>Add a Review</h2>
+        <input type="text" id="gymNameSubmitInput" placeholder="Enter gym name">
+        <input type="text" id="reviewerNameInput" placeholder="Enter your name">
+        <input type="text" id="reviewTextInput" placeholder="Enter your review">
+        <input type="text" id="ratingInput" placeholder="Enter rating">
+        <button onclick="addReview()">Add Review</button>
+      </div>
+      <a href="index.html">Go back</a>
+    </div>
+  </body>
+</html>
