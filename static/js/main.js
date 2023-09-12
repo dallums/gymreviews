@@ -62,6 +62,20 @@ function getReviewsByGymName() {
         });
       });
   }
+
+  // TODO: adjust table here so it actually appears (we get 200 so the endpoint works at least)
+  function getReviewsByGymId() {
+    var gymId = document.getElementById("gymIdInput").value;
+    fetch(`/api/reviews/gym_id/${gymId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        var table = document.getElementById("reviewsTable");
+        table.innerHTML = "";
+        data.forEach((review) => {
+          table.appendChild(createReviewRow(review));
+        });
+      });
+  }
   
   function getAllReviews() {
     fetch(`/api/reviews`)

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from gym_type import GymType
+from data.gym_type import GymType
 
 @dataclass
 class Gym:
