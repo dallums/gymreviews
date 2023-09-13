@@ -1,1 +1,2 @@
 - How do we deal with potentially malicious actors spamming reviews?
+- Need functionality to match gym ids and such when submitting reviews and searching for extant gyms

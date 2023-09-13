@@ -1,32 +1,30 @@
 // Get the form element
 const form = document.querySelector("#add-review-form");
 
-// Add an event listener to the form's submit event
-form.addEventListener("submit", function (event) {
-  // Prevent the default form submission behavior
-  event.preventDefault();
-
-  // Get the values from the form inputs
-  const gymName = document.querySelector("#gym-name-input").value;
-  const reviewerName = document.querySelector("#reviewer-name-input").value;
-  const reviewText = document.querySelector("#review-text-input").value;
-  const rating = document.querySelector("#rating-input").value;
-
-  // Create a new review object
-  review = createReviewObject(gymName, reviewerName, reviewText, rating);
-
-  // Call the addReview function with the review object as the argument
-  addReview(review);
-});
-
 function addReview() {
-    const gymName = document.getElementById("gymNameSubmitInput").value;
-    const reviewerName = document.getElementById("reviewerNameInput").value;
-    const reviewText = document.getElementById("reviewTextInput").value;
-    const rating = document.getElementById("ratingInput").value;
-    
-    review = createReviewObject(gymName, reviewerName, reviewText, rating);
-    
+    // Get the values from the form inputs
+  const gymName = document.getElementById("gymNameSubmitInput").value;
+  const reviewerName = document.getElementById("reviewerNameInput").value;
+  const ratingText = document.getElementById("ratingTextInput").value;
+  const overallRating = document.getElementById("overallRatingInput").value;
+  const cleanlinessRating = document.getElementById("cleanlinessRatingInput").value;
+  const familyFriendlyRating = document.getElementById("familyFriendlyRatingInput").value;
+  const intensityRating = document.getElementById("intensityRatingInput").value;
+  const qualityOfInstructionRating = document.getElementById("qualityOfInstructionRatingInput").value;
+  const priceRating = document.getElementById("priceRatingInput").value;
+  const safetyRating = document.getElementById("safetyRatingInput").value;
+  const qualityOfTrainingPartnersRating = document.getElementById("qualityOfTrainingPartnersRatingInput").value;
+  const warmupsRating = document.getElementById("warmupsRatingInput").value;
+  const classAvailabilityRating = document.getElementById("classAvailabilityRatingInput").value;
+  const welcomingOfVisitorsRating = document.getElementById("welcomingOfVisitorsRatingInput").value;
+  const cliqueyRating = document.getElementById("cliqueyRatingInput").value;
+  const femaleFriendlyRating = document.getElementById("femaleFriendlyRatingInput").value;
+  
+  review = createReviewObject(gymName, reviewerName, ratingText, overallRating, cleanlinessRating,
+    familyFriendlyRating, intensityRating, qualityOfInstructionRating, priceRating, safetyRating,
+    qualityOfTrainingPartnersRating, warmupsRating, classAvailabilityRating, welcomingOfVisitorsRating,
+    cliqueyRating, femaleFriendlyRating);
+  
     fetch('/api/reviews', {
       method: 'POST',
       headers: {
@@ -39,13 +37,25 @@ function addReview() {
         // clear the form fields
         document.getElementById("gymNameSubmitInput").value = "";
         document.getElementById("reviewerNameInput").value = "";
-        document.getElementById("reviewTextInput").value = "";
-        document.getElementById("ratingInput").value = "";
+        document.getElementById("ratingTextInput").value = "";
+        document.getElementById("overallRatingInput").value = "";
+        document.getElementById("cleanlinessRatingInput").value = "";
+        document.getElementById("familyFriendlyRatingInput").value = "";
+        document.getElementById("intensityRatingInput").value = "";
+        document.getElementById("qualityOfInstructionRatingInput").value = "";
+        document.getElementById("priceRatingInput").value = "";
+        document.getElementById("safetyRatingInput").value = "";
+        document.getElementById("qualityOfTrainingPartnersRatingInput").value = "";
+        document.getElementById("warmupsRatingInput").value = "";
+        document.getElementById("classAvailabilityRatingInput").value = "";
+        document.getElementById("welcomingOfVisitorsRatingInput").value = "";
+        document.getElementById("cliqueyRatingInput").value = "";
+        document.getElementById("femaleFriendlyRatingInput").value = "";
         
         // display success message
         alert("Review submitted successfully!");
       } else {
-        alert("Error submitting review.");
+        alert('Error submitting review');
       }
     });
   }
@@ -63,7 +73,6 @@ function getReviewsByGymName() {
       });
   }
 
-  // TODO: adjust table here so it actually appears (we get 200 so the endpoint works at least)
   function getReviewsByGymId() {
     var gymId = document.getElementById("gymIdInput").value;
     fetch(`/api/reviews/gym_id/${gymId}`)
@@ -93,25 +102,79 @@ function getReviewsByGymName() {
     var row = document.createElement("tr");
     var gymNameCell = document.createElement("td");
     var reviewerNameCell = document.createElement("td");
-    var reviewTextCell = document.createElement("td");
-    var ratingCell = document.createElement("td");
+    var ratingTextCell = document.createElement("td");
+    var overallRatingCell = document.createElement("td");
+    var cleanlinessCell = document.createElement("td");
+    var familyFriendlyCell = document.createElement("td");
+    var intensityCell = document.createElement("td");
+    var qualityOfInstructionCell = document.createElement("td");
+    var priceCell = document.createElement("td");
+    var safetyCell = document.createElement("td");
+    var qualityOfTrainingPartnersCell = document.createElement("td");
+    var warmupsCell = document.createElement("td");
+    var classAvailabilityCell = document.createElement("td");
+    var welcomingOfVisitorsCell = document.createElement("td");
+    var cliqueyCell = document.createElement("td");
+    var femaleFriendlyCell = document.createElement("td");
+
     gymNameCell.textContent = review.gym_name;
     reviewerNameCell.textContent = review.reviewer_name;
-    reviewTextCell.textContent = review.review_text;
-    ratingCell.textContent = review.rating;
+    ratingTextCell.textContent = review.rating_text;
+    overallRatingCell.textContent = review.overall;
+    cleanlinessCell.textContent = review.cleanliness;
+    familyFriendlyCell.textContent = review.family_friendly;
+    intensityCell.textContent = review.intensity;
+    qualityOfInstructionCell.textContent = review.quality_of_instruction;
+    priceCell.textContent = review.price;
+    safetyCell.textContent = review.safety;
+    qualityOfTrainingPartnersCell.textContent = review.quality_of_training_partners;
+    warmupsCell.textContent = review.warmups;
+    classAvailabilityCell.textContent = review.class_availability;
+    welcomingOfVisitorsCell.textContent = review.welcoming_of_visitors;
+    cliqueyCell.textContent = review.cliquey;
+    femaleFriendlyCell.textContent = review.female_friendly;
+
+
     row.appendChild(gymNameCell);
     row.appendChild(reviewerNameCell);
-    row.appendChild(reviewTextCell);
-    row.appendChild(ratingCell);
+    row.appendChild(ratingTextCell);
+    row.appendChild(overallRatingCell);
+    row.appendChild(cleanlinessCell);
+    row.appendChild(familyFriendlyCell);
+    row.appendChild(intensityCell);
+    row.appendChild(qualityOfInstructionCell);
+    row.appendChild(priceCell);
+    row.appendChild(safetyCell);
+    row.appendChild(qualityOfTrainingPartnersCell);
+    row.appendChild(warmupsCell);
+    row.appendChild(classAvailabilityCell);
+    row.appendChild(welcomingOfVisitorsCell);
+    row.appendChild(cliqueyCell);
+    row.appendChild(femaleFriendlyCell);
+
     return row;
   }
 
-  function createReviewObject(gym_name, reviewer_name, review_text, rating) {
+  function createReviewObject(gym_name, reviewer_name, rating_text, overall_rating, cleanliness,
+    family_friendly, intensity, quality_of_instruction, price, safety, quality_of_training_partners,
+    warmups, class_availability, welcoming_of_visitors, cliquey, female_friendly) {
     const review = {
         gym_name,
         reviewer_name,
-        review_text,
-        rating
+        rating_text,
+        overall_rating,
+        cleanliness,
+        family_friendly,
+        intensity,
+        quality_of_instruction,
+        price,
+        safety,
+        quality_of_training_partners,
+        warmups,
+        class_availability,
+        welcoming_of_visitors,
+        cliquey,
+        female_friendly
     };
     return review;
 }
