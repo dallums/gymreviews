@@ -46,37 +46,12 @@ def get_reviews_by_gym_id(gym_id):
     reviews = [_create_review_from_returned_list_as_dict(row) for row in results]
     return jsonify(reviews)
 
-# TODO: clean this up - pass a Review object and parse json better
-# TODO: figure out why this endpoint is not working
 @app.route('/api/reviews', methods=['POST'])
 def post_review():
-    print('Endpoint called!')
     review = request.get_json()
-    print(f'Request: {request}')
-    print('JSON parsed')
-    print(review)
-    gym_name = review['gym_name']
-    reviewer_name = review['reviewer_name']
-    rating_text = review['rating_text']
-    overall_rating = review['overall_rating']
-    cleanliness = review['cleanliness']
-    family_friendly = review['family_friendly']
-    intensity = review['intensity']
-    quality_of_instruction = review['quality_of_instruction']
-    price = review['price']
-    safety = review['safety']
-    quality_of_training_partners = review['quality_of_training_partners']
-    warmups = review['warmups']
-    class_availability = review['class_availability']
-    welcoming_of_visitors = review['welcoming_of_visitors']
-    cliquey = review['cliquey']
-    female_friendly = review['female_friendly'] 
-    print('Estbalishing cursor')
+    new_review = Review(**review)
     cursor = db.cursor()
-    cursor.execute(generate_insert_review_query(gym_name, reviewer_name, rating_text, overall_rating,
-                                                    cleanliness, family_friendly, intensity, quality_of_instruction,
-                                                    price, safety, quality_of_training_partners, warmups, class_availability,
-                                                    welcoming_of_visitors, cliquey, female_friendly))
+    cursor.execute(generate_insert_review_query(new_review))
     db.commit()
     return 'Review posted successfully!'
 
@@ -85,21 +60,22 @@ def _create_review_from_returned_list_as_dict(result: List[str]) -> Dict[str, st
     'review_id' : result[0],
     'gym_id' : result[1],
     'gym_name' : result[2],
-    'reviewer_name' : result[3],
-    'rating_text' : result[4],
-    'overall' :result[5],
-    'cleanliness' : result[6],
-    'family_friendly' : result[7],
-    'intensity' : result[8],
-    'quality_of_instruction' : result[9],
-    'price' : result[10],
-    'safety' : result[11],
-    'quality_of_training_partners' : result[12],
-    'warmups' : result[13],
-    'class_availability' : result[14],
-    'welcoming_of_visitors' : result[15],
-    'cliquey' : result[16],
-    'female_friendly' : result[17]
+    'gym_address': result[3],
+    'reviewer_name' : result[4],
+    'rating_text' : result[5],
+    'overall' :result[6],
+    'cleanliness' : result[7],
+    'family_friendly' : result[8],
+    'intensity' : result[9],
+    'quality_of_instruction' : result[10],
+    'price' : result[11],
+    'safety' : result[12],
+    'quality_of_training_partners' : result[13],
+    'warmups' : result[14],
+    'class_availability' : result[15],
+    'welcoming_of_visitors' : result[16],
+    'cliquey' : result[17],
+    'female_friendly' : result[18]
     }
 
 

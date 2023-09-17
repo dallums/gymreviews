@@ -4,6 +4,7 @@ const form = document.querySelector("#add-review-form");
 function addReview() {
     // Get the values from the form inputs
   const gymName = document.getElementById("gymNameSubmitInput").value;
+  const gymAddress = document.getElementById("gymAddressSubmitInput").value;
   const reviewerName = document.getElementById("reviewerNameInput").value;
   const ratingText = document.getElementById("ratingTextInput").value;
   const overallRating = document.getElementById("overallRatingInput").value;
@@ -20,7 +21,7 @@ function addReview() {
   const cliqueyRating = document.getElementById("cliqueyRatingInput").value;
   const femaleFriendlyRating = document.getElementById("femaleFriendlyRatingInput").value;
   
-  review = createReviewObject(gymName, reviewerName, ratingText, overallRating, cleanlinessRating,
+  review = createReviewObject(gymName, gymAddress, reviewerName, ratingText, overallRating, cleanlinessRating,
     familyFriendlyRating, intensityRating, qualityOfInstructionRating, priceRating, safetyRating,
     qualityOfTrainingPartnersRating, warmupsRating, classAvailabilityRating, welcomingOfVisitorsRating,
     cliqueyRating, femaleFriendlyRating);
@@ -36,6 +37,7 @@ function addReview() {
       if (response.ok) {
         // clear the form fields
         document.getElementById("gymNameSubmitInput").value = "";
+        document.getElementById("gymAddressSubmitInput").value = "";
         document.getElementById("reviewerNameInput").value = "";
         document.getElementById("ratingTextInput").value = "";
         document.getElementById("overallRatingInput").value = "";
@@ -101,6 +103,7 @@ function getReviewsByGymName() {
   function createReviewRow(review) {
     var row = document.createElement("tr");
     var gymNameCell = document.createElement("td");
+    var gymAddressCell = document.createElement("td");
     var reviewerNameCell = document.createElement("td");
     var ratingTextCell = document.createElement("td");
     var overallRatingCell = document.createElement("td");
@@ -118,6 +121,7 @@ function getReviewsByGymName() {
     var femaleFriendlyCell = document.createElement("td");
 
     gymNameCell.textContent = review.gym_name;
+    gymAddressCell.textContent = review.gym_address;
     reviewerNameCell.textContent = review.reviewer_name;
     ratingTextCell.textContent = review.rating_text;
     overallRatingCell.textContent = review.overall;
@@ -136,6 +140,7 @@ function getReviewsByGymName() {
 
 
     row.appendChild(gymNameCell);
+    row.appendChild(gymAddressCell);
     row.appendChild(reviewerNameCell);
     row.appendChild(ratingTextCell);
     row.appendChild(overallRatingCell);
@@ -155,14 +160,15 @@ function getReviewsByGymName() {
     return row;
   }
 
-  function createReviewObject(gym_name, reviewer_name, rating_text, overall_rating, cleanliness,
+  function createReviewObject(gym_name, gym_address, reviewer_name, rating_text, overall, cleanliness,
     family_friendly, intensity, quality_of_instruction, price, safety, quality_of_training_partners,
     warmups, class_availability, welcoming_of_visitors, cliquey, female_friendly) {
     const review = {
         gym_name,
+        gym_address,
         reviewer_name,
         rating_text,
-        overall_rating,
+        overall,
         cleanliness,
         family_friendly,
         intensity,

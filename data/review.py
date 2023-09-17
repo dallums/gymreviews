@@ -1,24 +1,22 @@
 from dataclasses import dataclass
-from typing import Dict
-from data.gym import Gym
-from data.reviewer import Reviewer
 
 @dataclass
 class Review:
-    review_id: str
-    gym: Gym
-    reviewer: Reviewer
+    gym_name: str
+    gym_address: str
+    reviewer_name: str
     rating_text: str
-    cleanlieness: int
+    cleanliness: int
     family_friendly: int
     intensity: int
     quality_of_instruction: int
     price: int
     safety: int
-    quality_of_training_patners: int
-    wamrups: int
+    quality_of_training_partners: int
+    warmups: int
     class_availability: int
     welcoming_of_visitors: int
     cliquey: int
     female_friendly: int
     overall: int
+    review_id: str = '-1'

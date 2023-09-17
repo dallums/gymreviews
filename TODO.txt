@@ -1,2 +1,4 @@
 - How do we deal with potentially malicious actors spamming reviews?
 - Need functionality to match gym ids and such when submitting reviews and searching for extant gyms
+- Related: primary key should be a hash of address and gym name
+- On that note as well: need to add address field to gym and update everywhere
