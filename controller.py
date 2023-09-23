@@ -1,9 +1,14 @@
+import sys
 from typing import Dict, List
 from flask import Flask, request, jsonify, render_template
 import DAL
 from data.review import Review
-from data.gym import Gym
-from sql_queries import generate_get_all_reviews_query, generate_get_reviews_by_gym_id_query, generate_get_reviews_by_gym_name_query, generate_insert_review_query
+from authorizer import AuthorizationError, Authorizer, SMSAuthorizer
+from sql_queries import (
+    generate_get_all_reviews_query, 
+    generate_get_reviews_by_gym_id_query, 
+    generate_get_reviews_by_gym_name_query,
+    generate_insert_review_query)
 
 # Create a Flask app
 app = Flask(__name__)
@@ -48,12 +53,19 @@ def get_reviews_by_gym_id(gym_id):
 
 @app.route('/api/reviews', methods=['POST'])
 def post_review():
-    review = request.get_json()
-    new_review = Review(**review)
-    cursor = db.cursor()
-    cursor.execute(generate_insert_review_query(new_review))
-    db.commit()
-    return 'Review posted successfully!'
+    # Would be nice to inject this
+    authorizer = SMSAuthorizer()
+    try:
+        authorizer.authorize()
+        review = request.get_json()
+        new_review = Review(**review)
+        cursor = db.cursor()
+        cursor.execute(generate_insert_review_query(new_review))
+        db.commit()
+        return 'Review posted successfully!'
+    except AuthorizationError as e:
+        print(f'Exception: {e}', file=sys.stderr)
+        return str(e), 401
 
 def _create_review_from_returned_list_as_dict(result: List[str]) -> Dict[str, str]:
     return {

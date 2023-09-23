@@ -56,7 +56,10 @@ function addReview() {
         
         // display success message
         alert("Review submitted successfully!");
-      } else {
+      } else if (response.status == 401) {
+        alert("Unauthorized to post reviews!")
+      } 
+      else {
         alert('Error submitting review');
       }
     });
