@@ -92,4 +92,5 @@ def _create_review_from_returned_list_as_dict(result: List[str]) -> Dict[str, st
 
 
 if __name__ == '__main__':
+    # Default port from flask is 5000
     app.run()
