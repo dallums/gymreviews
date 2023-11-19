@@ -10,7 +10,6 @@ from sql_queries import (
     generate_get_reviews_by_gym_name_query,
     generate_insert_review_query)
 
-# Create a Flask app
 app = Flask(__name__)
 
 dal = DAL.DataBase()
